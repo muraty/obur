@@ -10,7 +10,7 @@ null_handler = logging.NullHandler()
 logger.addHandler(null_handler)
 
 
-def track_speed(url, duration=60, chunk_size=1024):
+def measure(url, duration=60, chunk_size=1024):
     """
     Test speed between two ends.
 
@@ -23,7 +23,7 @@ def track_speed(url, duration=60, chunk_size=1024):
 
     Usage:
 
-    >> track_speed('localhost:8080', duration=30, chunk_size=4096)
+    >> measure('localhost:8080', duration=30, chunk_size=4096)
 
     Calculation is handled based on the changes of speed time for every iteration. When changes
     become smoother, we are getting closer to the final decision. For a healthy and accurate speed test,

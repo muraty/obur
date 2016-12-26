@@ -24,7 +24,7 @@ def send_metrics_(speed, config):
 
 
 def main():
-    from obur import track_speed
+    from obur import measure
 
     logging.basicConfig(level=logging.INFO)
     config = load_config()
@@ -61,7 +61,7 @@ def main():
     else:
         chunk_size = config['calculation']['chunk_size']
 
-    speed = track_speed(args.url, duration, chunk_size)
+    speed = measure(args.url, duration, chunk_size)
     send_metrics_(speed, config)
 
 
