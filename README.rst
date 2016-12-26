@@ -29,31 +29,12 @@ Python Program
 
  measure(url, duration=60, chunk_size=1024)
 
-You can send the test result to different backends. You must define your
-backend in ``config.toml`` first. ``librato`` and ``statsd`` backends
-are supported up to now.
-
-Command Line
-
-::
-
- obur <target_url> --backend librato
-
-Python Program
-
-::
-
- from obur import send_metrics
-
- speed = measure(url)
- send_metrics(speed, 'librato', mail='foo@bar.com', api_key='XXX', metric='speed_metric')
-
 You can override ``duration`` and ``chunk_size`` parameters via command
 line.
 
 ::
 
- obur <target_url> --backend librato --duration 60 --chunk 1024
+ obur <target_url> --duration 60 --chunk 1024
 
 Important Note
 --------------

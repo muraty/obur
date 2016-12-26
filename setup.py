@@ -4,17 +4,15 @@ from setuptools import setup
 README = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 
 
-version = '0.0.5'
+version = '0.1.2'
 
 setup(
     name='obur',
     version=version,
     packages=['obur'],
     install_requires=[
-        'librato-metrics==0.4.9',
         'requests==2.12.4',
-        'toml==0.9.2',
-        'statsd==3.2.1'],
+    ],
     include_package_data=True,
     license='BSD License',
     description='A minimalistic speed test library.',
@@ -27,6 +25,5 @@ setup(
         'console_scripts': [
             'obur = obur.cli:main',
         ]
-    },
-    data_files=[('obur', ['config.toml'])]
+    }
 )
