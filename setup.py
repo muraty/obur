@@ -13,6 +13,7 @@ setup(
     install_requires=[
         'librato-metrics==0.4.9',
         'requests==2.12.4',
+        'toml==0.9.2',
         'statsd==3.2.1'],
     include_package_data=True,
     license='BSD License',
