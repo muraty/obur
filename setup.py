@@ -27,5 +27,6 @@ setup(
         'console_scripts': [
             'obur = obur.cli:main',
         ]
-    }
+    },
+    data_files=[('obur', ['config.toml'])]
 )
