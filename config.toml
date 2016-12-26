@@ -1,0 +1,17 @@
+[calculation]
+    chunk_size = 1024
+	duration = 60
+
+[backends]
+    
+	# Remove comments for sending metrics to librato
+    # [backends.librato]
+    # api_key = ''
+    # mail =  ''
+    # metric = ''
+
+	# Remove comments for sending metrics to statsd
+    # [backends.statsd]
+    # host = ''
+    # port =  ''
+    # metric = ''
