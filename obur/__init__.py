@@ -3,8 +3,11 @@ import math
 import logging
 import requests
 
-logger = logging.getLogger('obur')
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Add NullHandler to prevent logging warnings on startup
+null_handler = logging.NullHandler()
+logger.addHandler(null_handler)
 
 
 def track_speed(url, duration=60, chunk_size=1024):
