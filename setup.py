@@ -11,7 +11,7 @@ setup(
     version=version,
     packages=['obur'],
     install_requires=[
-        'requests==2.12.4',
+        'requests>=2',
     ],
     include_package_data=True,
     license='BSD License',
