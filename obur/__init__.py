@@ -14,7 +14,7 @@ def measure(url, duration=60, chunk_size=1024):
     """
     Test speed between two ends.
 
-    Returns speed in KB
+    Returns speed in KiB/s
 
     :param url: The destination url for testing.
     :param duration: Test duration in seconds
@@ -64,10 +64,10 @@ def measure(url, duration=60, chunk_size=1024):
             delta_downloaded = 0
             previous_time = time.time()
             download_speeds.append(speed)
-            logger.debug('Last second download speed: %s!', speed)
+            logger.debug('Last second download speed: %d KiB/s', speed)
             if len(download_speeds) >= speed_window_size:
                 speed_in_current_window = average(download_speeds[-speed_window_size:])
-                logger.info('Last %s second avg speed: %s', speed_window_size, speed_in_current_window)
+                logger.info('Last %s seconds average speed: %d KiB/s', speed_window_size, speed_in_current_window)
                 std_dev_list.append(speed_in_current_window)
 
             if time.time() - start_time > speed_window_size:
@@ -79,7 +79,7 @@ def measure(url, duration=60, chunk_size=1024):
                     speed_threshold = avg_speed * threshold
                     logger.debug('Speed threshold is %s', speed_threshold)
                     if std_dev < speed_threshold:
-                        logger.info('Standard deviation is enough for stable speed.')
+                        logger.debug('Standard deviation is enough for stable speed.')
                         break
 
     total_time = time.time() - start_time
@@ -88,10 +88,10 @@ def measure(url, duration=60, chunk_size=1024):
         logger.error('Insufficient time for calculating the speed.')
         return
 
-    logger.info('Elapsed time: %s', total_time)
+    logger.info('Elapsed time: %.3f seconds', total_time)
     logger.info("URL: %s", url)
-    logger.info("Speed: %s KB", speed)
-    logger.info("Total Size: %s MB", total_downloaded / 1024 / 1024)
+    logger.info("Speed: %d KiB/s", speed)
+    logger.info("Total Downloaded: %.3f MB", total_downloaded / 1024 / 1024)
 
     return speed
 
