@@ -17,8 +17,8 @@ setup(
     license='BSD License',
     description='A minimalistic speed test library.',
     long_description=README,
-    keywords='speedtest speed obur',
-    url='http://github.com/muraty/obur',
+    keywords='speedtest speed obur puke',
+    url='https://github.com/muraty/obur',
     author='Omer Murat Yildirim',
     author_email='omermuratyildirim@gmail.com',
     entry_points={
