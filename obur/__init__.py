@@ -10,7 +10,7 @@ null_handler = logging.NullHandler()
 logger.addHandler(null_handler)
 
 
-def measure(url, duration=60, chunk_size=1024):
+def measure(url, duration=60, chunk_size=1024, verify_ssl=True):
     """
     Test speed between two ends.
 
@@ -30,7 +30,7 @@ def measure(url, duration=60, chunk_size=1024):
     the connection should stay alive longer depending on the distance between two ends.
 
     """
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, verify=verify_ssl)
     r.raise_for_status()
 
     start_time = time.time()
