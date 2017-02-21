@@ -56,12 +56,16 @@ def measure(url, duration=60, chunk_size=1024, threshold=0.05,
         delta_downloaded += len(chunk)
 
         delta = time.time() - previous_time
+        # Get data points in every this (time_interval) interval.
         if delta >= time_interval:
             speed = delta_downloaded / delta / 1024
-            delta_downloaded = 0
+            delta_downloaded = 0  # Reset delta downloaded count.
             previous_time = time.time()
+            # Keep every speed in the list.
             download_speeds.append(speed)
             logger.debug('Last second download speed: %d KiB/s', speed)
+            # If there is enough sample that is defined as speed window size,
+            # than add it to the standard deviation list.
             if len(download_speeds) >= speed_window_size:
                 speed_in_current_window = average(download_speeds[-speed_window_size:])
                 logger.info('Last %s seconds average speed: %d KiB/s', speed_window_size, speed_in_current_window)
@@ -69,7 +73,9 @@ def measure(url, duration=60, chunk_size=1024, threshold=0.05,
 
             if time.time() - start_time > speed_window_size:
                 last_data_points = std_dev_list[-standard_deviation_count:]
-                if len(last_data_points) >= 10:
+                # If there is enough data that we defined as standard deviation count,
+                # start calculating.
+                if len(last_data_points) >= standard_deviation_count:
                     std_dev = standard_deviation(last_data_points)
                     logger.debug('Standard deviation for last %s speeds: %s',
                                  standard_deviation_count, std_dev)
