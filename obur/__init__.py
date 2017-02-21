@@ -10,7 +10,8 @@ null_handler = logging.NullHandler()
 logger.addHandler(null_handler)
 
 
-def measure(url, duration=60, chunk_size=1024, verify_ssl=True):
+def measure(url, duration=60, chunk_size=1024, threshold=0.05,
+            standard_deviation_count=10, speed_window_size=5, time_interval=1, verify_ssl=True):
     """
     Test speed between two ends.
 
@@ -37,12 +38,8 @@ def measure(url, duration=60, chunk_size=1024, verify_ssl=True):
     total_downloaded = 0
     download_speeds = []
     std_dev_list = []
-    threshold = 0.05  # If standard deviation is less than %5 then the speed is stable.
     delta_downloaded = 0
-    std_deviation_count = 10
     previous_time = time.time()
-    speed_window_size = 5  # in seconds
-    time_interval = 1  # in seconds. Get data points in every this interval.
     speed = None
 
     for chunk in r.iter_content(chunk_size):
@@ -71,10 +68,11 @@ def measure(url, duration=60, chunk_size=1024, verify_ssl=True):
                 std_dev_list.append(speed_in_current_window)
 
             if time.time() - start_time > speed_window_size:
-                last_data_points = std_dev_list[-std_deviation_count:]
+                last_data_points = std_dev_list[-standard_deviation_count:]
                 if len(last_data_points) >= 10:
                     std_dev = standard_deviation(last_data_points)
-                    logger.debug('Standard deviation for last %s speeds: %s', std_deviation_count, std_dev)
+                    logger.debug('Standard deviation for last %s speeds: %s',
+                                 standard_deviation_count, std_dev)
                     avg_speed = average(last_data_points)
                     speed_threshold = avg_speed * threshold
                     logger.debug('Speed threshold is %s', speed_threshold)
