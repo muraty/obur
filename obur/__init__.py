@@ -1,17 +1,25 @@
 import time
 import math
 import logging
+from typing import List
+
 import requests
 
 logger = logging.getLogger(__name__)
 
-# Add NullHandler to prevent logging warnings on startup
+# TODO: Add NullHandler to prevent logging warnings on startup
 null_handler = logging.NullHandler()
 logger.addHandler(null_handler)
 
 
-def measure(url, duration=60, chunk_size=1024, threshold=0.05,
-            standard_deviation_count=10, speed_window_size=5, time_interval=1, verify_ssl=True):
+def measure(url: str,
+            duration: int = 60,
+            chunk_size: int = 1024,
+            threshold: float = 0.05,
+            standard_deviation_count: int = 10,
+            speed_window_size: int = 5,
+            time_interval: int = 1,
+            verify_ssl: bool = True):
     """
     Test speed between two ends.
 
@@ -100,7 +108,7 @@ def measure(url, duration=60, chunk_size=1024, threshold=0.05,
     return speed
 
 
-def average(s):
+def average(s: List[float]):
     """
     Average of the given list
 
@@ -110,7 +118,7 @@ def average(s):
     return sum(s) * 1.0 / len(s)
 
 
-def standard_deviation(s):
+def standard_deviation(s: List[float]):
     """
     Standard deviation of given list of elements.
 
@@ -123,5 +131,5 @@ def standard_deviation(s):
 
     """
     avg = average(s)
-    variance = map(lambda x: (x - avg)**2, s)
+    variance = list(map(lambda x: (x - avg)**2, s))
     return math.sqrt(average(variance))

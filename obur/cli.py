@@ -48,5 +48,6 @@ def main():
             speed_window_size=args.speed_window_size,
             time_interval=args.time_interval)
 
+
 if __name__ == '__main__':
     main()
