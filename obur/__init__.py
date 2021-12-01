@@ -53,11 +53,13 @@ def measure(url: str,
     for chunk in r.iter_content(chunk_size):
         if not chunk:
             logger.error('No chunk!')
+            speed = None
             break
 
         passed = time.time() - start_time
         if passed > duration:
             logger.error('More than max duration %s seconds !', duration)
+            speed = None
             break
 
         total_downloaded += len(chunk)
@@ -98,7 +100,7 @@ def measure(url: str,
 
     if not speed:
         logger.error('Insufficient time for calculating the speed.')
-        return
+        return None
 
     logger.info('Elapsed time: %.3f seconds', total_time)
     logger.info("URL: %s", url)
